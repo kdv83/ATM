@@ -1,0 +1,22 @@
+version: '3.1'
+
+volumes:
+  bundle:
+  cache:
+services:
+  server_app: &server_app
+    container_name: grape-api
+    build: .
+    working_dir: /atm
+    volumes:
+      - .:/atm
+      - bundle:/bundle
+      - cache:/cache
+    tty: true
+    stdin_open: true
+    environment:
+      SECRET_KEY_BASE: STUB
+      DEVISE_SECRET_KEY: STUB
+      SPROCKETS_CACHE: "/cache"
+    ports:
+      - 80:9292
